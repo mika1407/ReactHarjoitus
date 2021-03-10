@@ -33,7 +33,7 @@ const CustomerList = () => {
     <button onClick={() => setLisäystila(true)}>Add new</button>
     </h1>
 
-    <input value={search} onChange={handleSeachInputChange}/>
+    <input placeholder="Search by company name" value={search} onChange={handleSeachInputChange}/>
 
     {customers && näytetäänkö === true && lisäysTila === false && customers.map(customer =>{
       const caseInsensName = customer.companyName.toLowerCase()
