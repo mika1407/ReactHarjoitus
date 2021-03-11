@@ -4,7 +4,7 @@ import CustomerService from './services/customer'
 import Customer from './Customer'
 import CustomerAdd from './CustomerAdd'
 
-const CustomerList = () => {
+const CustomerList = ({setMessage, setShowMessage, setIsPositive}) => {
 
   const [customers, setCustomers] = useState([])
   const [näytetäänkö, setNäytetäänkö] = useState(false)
@@ -18,13 +18,26 @@ const CustomerList = () => {
       //console.log(data)
       setCustomers(data)     
     })
-  }, [])
+  }, [näytetäänkö])
 
   //Hakukentän onChange tapahtumankäsittelijä
   const handleSeachInputChange = (event) => {
+    //console.log(search)
     setNäytetäänkö(true)
     setSearch(event.target.value.toLowerCase())
   }
+
+const handleDeleteClick = id => {
+  CustomerService.remove(id)
+  .then(promise => {
+    setCustomers(customers.filter(filtered => filtered.id !== id))
+    if (promise.status === 200) {
+      alert("Asiakas poistettu")
+    }
+    setNäytetäänkö(false)
+    setNäytetäänkö(true)
+  })
+}
 
   return (
     <>
@@ -33,13 +46,16 @@ const CustomerList = () => {
     <button onClick={() => setLisäystila(true)}>Add new</button>
     </h1>
 
+    {!lisäysTila &&
     <input placeholder="Search by company name" value={search} onChange={handleSeachInputChange}/>
+    }
 
     {customers && näytetäänkö === true && lisäysTila === false && customers.map(customer =>{
       const caseInsensName = customer.companyName.toLowerCase()
         if (caseInsensName.indexOf(search) > -1) {
           return (
-            <Customer key={customer.customerId} customer={customer} />
+            <Customer key={customer.customerId} customer={customer} 
+              handleDeleteClick={handleDeleteClick}/>
           )
         }
       }   
@@ -47,7 +63,7 @@ const CustomerList = () => {
     }
       {!customers && <p>Loading...</p>}
 
-      {lisäysTila === true && <CustomerAdd setLisäystila={setLisäystila} />}
+      {lisäysTila === true && <CustomerAdd setLisäystila={setLisäystila} customers={customers} setCustomers={setCustomers} setMessage={setMessage} setShowMessage={setShowMessage} setIsPositive={setIsPositive}/>}
     </>
   );
 }

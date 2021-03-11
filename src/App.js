@@ -3,11 +3,16 @@ import './App.css';
 /*import Laskuri from './laskuri'*/
 import CustomerList from './CustomerList'
 import Kello from './Kello'
+import Message from './Message'
 
 const App = () => {
 
 const [luku, setLuku] = useState(0)
 const [clock, setClock] = useState(false)
+
+const [showMessage, setShowMessage] = useState(false)
+const [isPositive, setIsPositive] = useState(false)
+const [message, setMessage] = useState('')
 
 /*setTimeout(() => {
   setLuku(luku + 1)
@@ -20,9 +25,15 @@ const [clock, setClock] = useState(false)
         <h1 onClick={() => setClock(!clock)}>Northwind2021</h1>
       </header>
 
+        { showMessage &&
+          <Message message={message} isPositive={isPositive}/>
+        }
+        
+
         {clock && <Kello koko={450} />}
 
-        {!clock && <CustomerList />}
+        {!clock && <CustomerList setShowMessage={setShowMessage} setIsPositive={setIsPositive}
+        setMessage={setMessage} />}
         
         {/*<Laskuri luku={luku} setLuku={setLuku}/>*/}
 
