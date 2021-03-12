@@ -118,7 +118,7 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setS
                     onChange={({ target }) => setNewFax(target.value)} />
             </div>
 
-            <button type="submit" style={{ background: 'green' }}>Create</button>
+            <button type="submit" >Create</button>        {/*style={{ background: 'green' }} hakee värin App.css*/}
 
             <button onClick={() => setLisäystila(false)} style={{ background: 'red' }}>
                 Cancel</button>

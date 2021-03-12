@@ -1,14 +1,14 @@
 h3 {
   text-align: right;
-  margin-right: 30%;
+  margin-right: 24%;
 }
 
 .App {
   text-align: center;
   font-size: 22px;
-  color: #282c34;
-  margin-left: 2%;
-  margin-right: 2%;
+  color: #212329;
+  margin-left: 0%;
+  margin-right: 0%;
   min-height: 700px;
   background-color: white;
 }
@@ -16,7 +16,7 @@ h3 {
 button {
   margin: 10px;
   font-size: 18px;
-  height: 65px;
+  height: 55px;
   width: 150px;
   border-radius: 6px;
   border: none;
@@ -40,18 +40,18 @@ table {
 table,
 th,
 td {
-  border-color: lightgray;
+  border-color: gray;
   border-style: solid;
   border-width: 1px;
-  font-size: 28px;
+  font-size: 18px;
 }
 
 .customerWindow {
-  background-color: #a5b3cf;
+  background-color: #c5c5c5;
   border-style: solid;
-  width: 95%;
+  width: 60%;
   margin: auto;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .kello {
@@ -62,11 +62,11 @@ td {
 form {
   margin-left: 20%;
   border-style: solid;
-  border-color: chocolate;
+  border-color: lightgray;
   padding-bottom: 8px;
   padding-top: 8px;
   width: 60%;
-  background: chocolate;
+  background: rgb(71, 71, 71);
   border-radius: 7px;
 }
 
@@ -87,7 +87,7 @@ input {
 }
 
 .pos {
-  color: green;
+  color: rgb(87, 97, 102);
   background: lightgrey;
   font-size: 20px;
   border-style: solid;
