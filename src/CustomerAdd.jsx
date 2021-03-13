@@ -79,11 +79,11 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setS
             input elementin target tiedon. Funktiot kutsuvat set state hookia parametrina target.value */}
             <div>
                 <input type="text" value={newCustomerId} placeholder="ID of 5 capital letters" maxLength="5"
-                    onChange={({ target }) => setNewCustomerId(target.value)} />
+                    onChange={({ target }) => setNewCustomerId(target.value)} required/>
             </div>
             <div>
                 <input type="text" value={newCompanyName} placeholder="Company name"
-                    onChange={({ target }) => setNewCompanyName(target.value)} />
+                    onChange={({ target }) => setNewCompanyName(target.value)} required/>
             </div>
             <div>
                 <input type="text" value={newContactName} placeholder="Contact name"

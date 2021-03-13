@@ -22,7 +22,7 @@ const [message, setMessage] = useState('')
   return (
     <div className="App">
       <header className="App-header">
-        <h1 onClick={() => setClock(!clock)}>Northwind2021</h1>
+        <h1 onClick={() => setClock(!clock)} style={{ cursor: 'pointer'}} >Northwind2021</h1>   {/*lisätty: style={{ cursor: 'pointer'}}  */}
       </header>
 
         { showMessage &&
