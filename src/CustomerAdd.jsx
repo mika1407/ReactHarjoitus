@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import './App.css'
 import CustomerService from './services/customer'
 
-const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setShowMessage, setIsPositive }) => {
+const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setShowMessage,
+    setIsPositive }) => {
 
     // State määritykset
 
@@ -36,54 +37,52 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setS
             fax: newFax
         }
 
-        try {
-            CustomerService // Käytetään services/customer tiedoston..
-                .create(newCustomer) // ..create metodia back-end http pyyntöön
-                .then(response => console.log(response.data)) 
-                  setMessage(`Lisätty ${newCustomer.companyName}`)
-                  setIsPositive(true)
-                  setShowMessage(true)
-                  setCustomers(customers.concat(newCustomer))
+        CustomerService
+            .create(newCustomer)
+            .then(response => {
 
-                  setTimeout(() => {
+                if (response.status === 200) {
+                    setCustomers(customers.concat(newCustomer))
+                    setMessage(`Lisätty ${newCustomer.companyName}`)
+                    setIsPositive(true)
+                    setShowMessage(true)
+
+                    setTimeout(() => {
+                        setShowMessage(false)
+                    }, 4000
+                    )
+                }
+
+            })
+            .catch(error => {
+                setMessage(`Tapahtui virhe. Tässä lisätietoa: ${error}`)
+                setIsPositive(false)
+                setShowMessage(true)
+
+                setTimeout(() => {
                     setShowMessage(false)
-                  },
-                  4000
-                  )      
+                }, 7000
+                )
+            })
 
-        }
-        catch (e) {
-            setMessage(`Tapahtui virhe: ${e}`)
-            setIsPositive(false)
-            setShowMessage(true)
+        setLisäystila(false)
 
-            setTimeout(() => {
-              setShowMessage(false)
-            },
-            4000
-            )
-        }
-        finally {
-
-            setLisäystila(false)
-
-        }
     }
-
     // Komponentti palauttaa käyttöliittymään form elementin
+    // Lisätty required 2 ensimmäiseen inputiin
 
     return (
         <form onSubmit={submitCustomer}>
 
-            {/* inputien tapahtumankäsittelijät on funktiota, jotka saa parametrikseen
+            {/* inputien tapahtumankäsittelijöissä on määritelty funktio, jotka saa parametrikseen kyseisen
             input elementin target tiedon. Funktiot kutsuvat set state hookia parametrina target.value */}
             <div>
-                <input type="text" value={newCustomerId} placeholder="ID of 5 capital letters" maxLength="5"
-                    onChange={({ target }) => setNewCustomerId(target.value)} required/>
+                <input type="text" value={newCustomerId} placeholder="ID with 5 capital letters" maxLength="5" minLength="5"
+                    onChange={({ target }) => setNewCustomerId(target.value)} required />
             </div>
             <div>
                 <input type="text" value={newCompanyName} placeholder="Company name"
-                    onChange={({ target }) => setNewCompanyName(target.value)} required/>
+                    onChange={({ target }) => setNewCompanyName(target.value)} required />
             </div>
             <div>
                 <input type="text" value={newContactName} placeholder="Contact name"
@@ -118,7 +117,7 @@ const CustomerAdd = ({ setLisäystila, setCustomers, customers, setMessage, setS
                     onChange={({ target }) => setNewFax(target.value)} />
             </div>
 
-            <button type="submit" >Create</button>        {/*style={{ background: 'green' }} hakee värin App.css*/}
+            <button type="submit" style={{ background: 'green' }}>Create</button>
 
             <button onClick={() => setLisäystila(false)} style={{ background: 'red' }}>
                 Cancel</button>
